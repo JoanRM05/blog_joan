@@ -14,8 +14,8 @@
 </head>
 
 <body
-    class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-    <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-5 not-has-[nav]:hidden">
+    class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center justify-center min-h-screen flex-col">
+    <header class="w-full lg:max-w-4xl max-w-[700px] text-sm mb-5 not-has-[nav]:hidden">
         @if (Route::has('login'))
             <nav class="flex items-center justify-end gap-4">
                 @auth
@@ -39,12 +39,12 @@
             </nav>
         @endif
     </header>
-    <div class="Card w-full max-w-[700px] bg-[#adbaba] dark:bg-[#0a0a0a] rounded-lg shadow-lg p-10 mt-10">
-        <div class="Card-header flex gap-4 flex-col justify-between">
+    <div class="w-full max-w-[700px] bg-[#ace8e8] dark:bg-[#0a0a0a] rounded-lg shadow-lg p-10 mt-10">
+        <div class="flex gap-4 flex-col justify-between">
             <p class="text-3xl text-center">Welcome to <b>Joan Blog</b></p>
             <p class="text-sm font-bold text-center"> ! Have fun and enjoy !</p>
         </div>
-        <div class="Card-body flex gap-4 flex-col justify-between mt-5">
+        <div class="flex gap-4 flex-col justify-between mt-5">
             <p class="text-sm text-center">Welcome to the blog. A recreational space to post news, previews, or
                 interesting facts about the topics covered. Register to participate in this experience or log in to
                 continue publishing.</p>
