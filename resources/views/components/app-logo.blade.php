@@ -2,5 +2,5 @@
     <x-app-logo-icon class="size-5 fill-current text-white dark:text-black" />
 </div>
 <div class="ms-1 grid flex-1 text-start text-sm">
-    <span class="mb-0.5 truncate leading-none font-semibold">Blog Joan</span>
+    <span class="mt-0.5 truncate leading-none font-bold text-lg">Blog With Friends</span>
 </div>

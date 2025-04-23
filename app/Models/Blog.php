@@ -15,11 +15,17 @@ class Blog extends Model
         'genre',
         'image',
         'user_id',
+        'created_at',
+        'updated_at'
     ];
 
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-    
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
