@@ -10,6 +10,11 @@
                 {{ session('success_update') }}
             </div>
         @endif
+        @if (session('success_delete'))
+            <div class="bg-green-500 absolute z-30 text-white p-4 rounded-md mb-4 font-bold w-2/6 text-center">
+                {{ session('success_delete') }}
+            </div>
+        @endif
         <h1 class="text-center mb-4 text-4xl font-bold">My Blogs</h1>
         <div name="MyBlogs">
             @if ($blogs->isEmpty())

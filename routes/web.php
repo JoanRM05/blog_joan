@@ -41,6 +41,10 @@ Route::put('blog/update/{id}', [BlogController::class, 'updateBlog'])
     ->middleware(['auth', 'verified'])
     ->name('updateBlog');
 
+Route::delete('blog/delete/{id}', [BlogController::class, 'deleteBlog'])
+    ->middleware(['auth', 'verified'])
+    ->name('deleteBlog');
+
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');

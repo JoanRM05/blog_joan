@@ -9,7 +9,18 @@
             </div>
         @else
             <div name="CreateBlog">
-                <div class="border rounded-2xl p-10 mt-20 ">
+                <div class="mt-10 flex justify-end">
+                    <form action="{{ route('deleteBlog', ['id' => $blog->id]) }}" method="POST"
+                        onsubmit="return confirm('Are you sure you want to delete this blog?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                            class="bg-red-500 text-white px-5 py-2 rounded-2xl text-xl hover:bg-red-600 transition cursor-pointer font-bold">
+                            <i class="fa-solid fa-trash"></i> Delete
+                        </button>
+                    </form>
+                </div>
+                <div class="border rounded-2xl p-10 mt-5">
                     <form action="{{ route('updateBlog', ['id' => $blog->id]) }}" method="POST"
                         enctype="multipart/form-data" class="grid gap-5">
                         @csrf
@@ -90,10 +101,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex items-center justify-between">
-                            <button onclick="window.location.href='{{ route('allBlogs') }}'"
-                                class="bg-red-500 text-white px-5 py-2 rounded-2xl text-xl hover:bg-red-600 transition cursor-pointer font-bold">
-                                Delete </button>
+                        <div class="flex items-center justify-end">
                             <input type="submit"
                                 class="bg-cyan-500 text-white px-5 py-2 rounded-2xl text-xl hover:bg-cyan-600 transition cursor-pointer font-bold"
                                 value="Edit Blog"></input>
@@ -128,7 +136,7 @@
                     <img src="${e.target.result}" alt="Image Preview" class="mx-auto max-w-full h-auto rounded-md">
                 `;
                 removeButton.classList.remove('hidden');
-                imageRemovedInput.value = '0'; 
+                imageRemovedInput.value = '0';
             };
 
             reader.readAsDataURL(file);
@@ -138,7 +146,7 @@
             `;
             removeButton.classList.add('hidden');
             imageRemovedInput.value = hasPreloadedImage ? '1' :
-            '0'; 
+                '0';
         }
     });
 
