@@ -94,27 +94,31 @@ class BlogController extends Controller
 
     public function updateBlog(Request $request, $id)
     {
+
         $request->validate([
             'title' => 'required|string|max:255',
+            'category' => 'required|string',
             'content' => 'required|string',
-            'category' => 'required|string|max:50',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:4194304',
+            'image' => 'nullable|image|mimes:jpeg,png,gif|max:4194304',
         ]);
 
-        $blog = Blog::find($id);
-        $blog->title = $request->get('title');
+        $blog = Blog::findOrFail($id);
+
+        $blog->title  = $request->get('title');
         $blog->content = $request->get('content');
         $blog->category = $request->get('category');
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $blog->image = file_get_contents($image->getRealPath());
-        } else {
+        } elseif ($request->input('image_removed') === '1') {
             $blog->image = null;
+        } else {
+            $blog->image;
         }
 
         $blog->save();
 
-        return redirect('blogs/myblogs')->with('success_update', '¡Blog edited successfully!');
+        return redirect()->route('myBlogs')->with('success_update', 'Blog updated successfully');
     }
 }

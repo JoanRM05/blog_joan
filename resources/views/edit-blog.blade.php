@@ -4,7 +4,7 @@
         @if ($blog == null)
             <div class="col-12">
                 <h1 class="text-center text-2xl font-bold">No blog available.
-                    <a href="{{ route('dashboard') }}" class="text-blue-600"> Volver al Dashboard </a>
+                    <a href="{{ route('dashboard') }}" class="text-blue-600"> Return to Dashboard </a>
                 </h1>
             </div>
         @else
@@ -55,8 +55,7 @@
                                             <div id="image-preview">
                                                 @if ($blog->image_base64 ?? false)
                                                     <img src="data:image/jpeg;base64,{{ $blog->image_base64 }}"
-                                                        alt="Imagen del Blog"
-                                                        class="mx-auto max-w-full h-auto rounded-md">
+                                                        alt="Blog Image" class="mx-auto max-w-full h-auto rounded-md">
                                                 @else
                                                     <i class="fas fa-cloud-upload-alt text-4xl text-gray-400"></i>
                                                 @endif
@@ -75,6 +74,8 @@
                                                     class="mt-2 {{ $blog->image_base64 ?? false ? '' : 'hidden' }} text-sm font-semibold text-red-600 hover:text-red-500 cursor-pointer">
                                                     Remove Image
                                                 </button>
+                                                <input type="hidden" name="image_removed" id="image-removed"
+                                                    value="0">
                                             </div>
                                         </div>
                                     </div>
@@ -89,10 +90,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex items-center justify-end">
+                        <div class="flex items-center justify-between">
+                            <button onclick="window.location.href='{{ route('allBlogs') }}'"
+                                class="bg-red-500 text-white px-5 py-2 rounded-2xl text-xl hover:bg-red-600 transition cursor-pointer font-bold">
+                                Delete </button>
                             <input type="submit"
                                 class="bg-cyan-500 text-white px-5 py-2 rounded-2xl text-xl hover:bg-cyan-600 transition cursor-pointer font-bold"
-                                value="Editar Blog"></input>
+                                value="Edit Blog"></input>
                         </div>
                     </form>
                 </div>
@@ -105,8 +109,13 @@
     const fileInput = document.getElementById('file-upload');
     const previewContainer = document.getElementById('image-preview');
     const removeButton = document.getElementById('remove-image');
+    const imageRemovedInput = document.getElementById('image-removed');
 
     let hasPreloadedImage = @json($blog->image_base64 ?? false);
+
+    if (hasPreloadedImage) {
+        removeButton.classList.remove('hidden');
+    }
 
     fileInput.addEventListener('change', function(event) {
         const file = event.target.files[0];
@@ -116,18 +125,20 @@
 
             reader.onload = function(e) {
                 previewContainer.innerHTML = `
-                    <img src="${e.target.result}" alt="Vista previa de la imagen" class="mx-auto max-w-full h-auto rounded-md">
+                    <img src="${e.target.result}" alt="Image Preview" class="mx-auto max-w-full h-auto rounded-md">
                 `;
                 removeButton.classList.remove('hidden');
+                imageRemovedInput.value = '0'; 
             };
 
             reader.readAsDataURL(file);
         } else {
-
             previewContainer.innerHTML = `
                 <i class="fas fa-cloud-upload-alt text-4xl text-gray-400"></i>
             `;
             removeButton.classList.add('hidden');
+            imageRemovedInput.value = hasPreloadedImage ? '1' :
+            '0'; 
         }
     });
 
@@ -137,5 +148,6 @@
             <i class="fas fa-cloud-upload-alt text-4xl text-gray-400"></i>
         `;
         removeButton.classList.add('hidden');
+        imageRemovedInput.value = '1';
     });
 </script>
