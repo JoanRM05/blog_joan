@@ -9,12 +9,11 @@
             </div>
         @else
             <div name="CreateBlog">
-                <div class="mt-10 flex justify-end">
-                    <form action="{{ route('deleteBlog', ['id' => $blog->id]) }}" method="POST"
-                        onsubmit="return confirm('Are you sure you want to delete this blog?');">
+                <div class="mt-10 mr-10 flex justify-end">
+                    <form id="delete-form" action="{{ route('deleteBlog', ['id' => $blog->id]) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit"
+                        <button type="button" id="delete-button"
                             class="bg-red-500 text-white px-5 py-2 rounded-2xl text-xl hover:bg-red-600 transition cursor-pointer font-bold">
                             <i class="fa-solid fa-trash"></i> Delete
                         </button>
@@ -111,6 +110,24 @@
             </div>
         @endif
     </div>
+
+    <div id="delete-modal" class="fixed inset-0 bg-opacity-100 hidden flex ml-40 items-center justify-center">
+        <div class="p-6 bg-gray-800 rounded-xl shadow-lg w-1/3 ">
+            <h2 class="text-2xl font-bold mb-4 text-center">Confirm Deletion</h2>
+            <p class="text-center mb-6">Are you sure you want to delete this blog? This action cannot be undone.</p>
+            <div class="flex justify-center gap-4">
+                <button id="confirm-delete"
+                    class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition cursor-pointer">
+                    Yes
+                </button>
+                <button id="cancel-delete"
+                    class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400 transition cursor-pointer">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+
 </x-layouts.app>
 
 <script>
@@ -118,6 +135,11 @@
     const previewContainer = document.getElementById('image-preview');
     const removeButton = document.getElementById('remove-image');
     const imageRemovedInput = document.getElementById('image-removed');
+    const deleteButton = document.getElementById('delete-button');
+    const deleteModal = document.getElementById('delete-modal');
+    const confirmDelete = document.getElementById('confirm-delete');
+    const cancelDelete = document.getElementById('cancel-delete');
+    const deleteForm = document.getElementById('delete-form');
 
     let hasPreloadedImage = @json($blog->image_base64 ?? false);
 
@@ -157,5 +179,18 @@
         `;
         removeButton.classList.add('hidden');
         imageRemovedInput.value = '1';
+    });
+
+    deleteButton.addEventListener('click', function() {
+        deleteModal.classList.remove('hidden');
+    });
+
+    confirmDelete.addEventListener('click', function() {
+        deleteForm.submit();
+        deleteModal.classList.add('hidden');
+    });
+
+    cancelDelete.addEventListener('click', function() {
+        deleteModal.classList.add('hidden');
     });
 </script>
