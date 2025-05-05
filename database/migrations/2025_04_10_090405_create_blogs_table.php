@@ -23,7 +23,7 @@ return new class extends Migration
             /* Temporal, hasta que se puedan crear los blogs en la propia web */
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
-            
+
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

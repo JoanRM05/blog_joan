@@ -12,17 +12,35 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::get('allBlogs', [BlogController::class, 'allBlogs'])
+Route::get('blogs/all', [BlogController::class, 'allBlogs'])
     ->middleware(['auth', 'verified'])
     ->name('allBlogs');
 
-Route::get('myBlogs', [BlogController::class, 'myBlogs'])
+Route::get('blogs/show/{id}', [BlogController::class, 'showBlog'])
+    ->middleware(['auth', 'verified'])
+    ->name('showBlog');
+
+Route::get('blogs/myblogs', [BlogController::class, 'myBlogs'])
     ->middleware(['auth', 'verified'])
     ->name('myBlogs');
 
-Route::get('showBlog/{id}', [BlogController::class, 'showBlog'])
+Route::view('blogs/myblogs/create', 'create-blog')
     ->middleware(['auth', 'verified'])
-    ->name('showBlog');
+    ->name('blogCreation');
+
+Route::post('blog/create', [BlogController::class, 'createBlog'])
+    ->middleware(['auth', 'verified'])
+    ->name('createBlog');
+
+Route::get('blogs/myblogs/edit/{id}', [BlogController::class, 'editBlog'])
+    ->middleware(['auth', 'verified'])
+    ->name('editBlog');
+
+
+Route::put('blog/update/{id}', [BlogController::class, 'updateBlog'])
+    ->middleware(['auth', 'verified'])
+    ->name('updateBlog');
+
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');

@@ -7,9 +7,9 @@
                 </h1>
             </div>
         @else
-            <div name="Blog" class="border rounded-2xl">
-                <h1 class="text-center my-7 text-4xl font-bold">{{ $blog->title }}</h1>
-                <div class="rounded-2xl p-10 pt-0 grid gap-8">
+            <div name="Blog" class="border rounded-2xl p-10">
+                <h1 class="text-center my-5 text-4xl font-bold">{{ $blog->title }}</h1>
+                <div class="rounded-2xl grid gap-8">
                     <div class="flex items-end justify-end">
                         <b>Category: {{ $blog->category }}</b>
                     </div>
