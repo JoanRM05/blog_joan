@@ -111,7 +111,7 @@
         @endif
     </div>
 
-    <div id="delete-modal" class="fixed inset-0 bg-opacity-100 hidden flex ml-40 items-center justify-center">
+    <div id="delete-modal" class="fixed inset-0 bg-opacity-  hidden flex ml-40 items-center justify-center">
         <div class="p-6 bg-gray-800 rounded-xl shadow-lg w-1/3 ">
             <h2 class="text-2xl font-bold mb-4 text-center">Confirm Deletion</h2>
             <p class="text-center mb-6">Are you sure you want to delete this blog? This action cannot be undone.</p>
